@@ -1,0 +1,28 @@
+from collections import deque   #importamos "deque" para que haga una cola
+
+def bfs(grafo, inicio):
+    visitados = []              #lista de nodos que ya visito
+    cola = deque([inicio])      #la cola empiza con el nodo inicaial
+
+    while cola:                 #mientras haya nodos en la cola
+        nodo = cola.popleft()   #sacamos el primero de la fila a la izquierda
+
+        if nodo not in visitados:   #si el nodo todavia no es visitado
+            visitados.append(nodo)  #lo marcamos como visitado
+            print(f"Visitados: {nodo} |cola: {list(cola)} | Visitados: {visitados}")             #se muestra
+
+            for vecino in grafo[nodo]:          #por cada vecino de ese nodo
+                if vecino not in visitados:     #si no esta visitado
+                    cola.append(vecino)         #lo metemos al final de la fila
+
+    return visitados   
+
+#grafo que se utilizara
+grafo ={
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F', 'G'],
+    'D': [], 'E':[], 'F':[], 'G':[]
+}
+
+bfs(grafo, 'A') #Salidas: A->B->C->D->E->F->G
