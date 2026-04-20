@@ -1,3 +1,10 @@
+import heapq  # Importamos heapq, que es nuestra cola de prioridad
+
+def ucs(grafo, inicio, meta):
+    # La cola guarda tuplas de (costo, nodo)
+    cola = [(0, inicio)]  # Arrancamos con costo 0 en el nodo inicial
+    visitados = {}        # Guardamos el costo mínimo de llegar a cada nodo
+
 # El grafo ahora tiene costos en cada conexión
 grafo = {
     'A': [('B', 1), ('C', 4)],
