@@ -1,0 +1,9 @@
+# El grafo ahora tiene costos en cada conexión
+grafo = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('D', 2)],
+    'C': [('D', 1)],
+    'D': []
+}
+
+ucs(grafo, 'A', 'D')
