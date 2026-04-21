@@ -5,6 +5,27 @@ def ucs(grafo, inicio, meta):
     cola = [(0, inicio)]  # Arrancamos con costo 0 en el nodo inicial
     visitados = {}        # Guardamos el costo mínimo de llegar a cada nodo
 
+
+    while cola:
+        costo, nodo = heapq.heappop(cola)  # Sacamos el de menor costo
+
+        if nodo in visitados:  # Si ya lo visitamos con menor costo, lo saltamos
+            continue
+
+        visitados[nodo] = costo  # Guardamos el costo para llegar a este nodo
+        print(f"Visitando: {nodo} | Costo acumulado: {costo}")
+
+        if nodo == meta:  # Si llegamos a la meta, terminamos
+            print(f"\n¡Meta encontrada! Costo total: {costo}")
+            return costo
+
+        for vecino, peso in grafo[nodo]:        # Por cada vecino y su costo...
+            if vecino not in visitados:          # Si no está visitado...
+                heapq.heappush(cola, (costo + peso, vecino))  # Lo metemos con su costo acumulado
+
+    return None  # Si no encontró camino
+
+
 # El grafo ahora tiene costos en cada conexión
 grafo = {
     'A': [('B', 1), ('C', 4)],
