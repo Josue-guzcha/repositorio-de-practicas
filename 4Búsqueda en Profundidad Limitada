@@ -1,0 +1,6 @@
+def dfs_limitado(grafo, inicio, limite):
+    visitados =[]
+    pila = [(inicio, 0)] #tupla de (nodo, profundidad actual)
+
+    while pila:
+        nodo, profundidad = pila.pop()
