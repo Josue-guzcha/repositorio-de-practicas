@@ -1,0 +1,16 @@
+def dfs(grafo, inicio):
+    visitados = []
+    pila = [inicio]
+
+    while pila:
+        nodo = pila.pop()   #Se saca el ultimo valor que se agrego
+
+        if nodo not in visitados:
+            visitados.append(nodo)
+            print(f"Visitado: {nodo} | pila: {pila}  | Visidatos {visitados}")
+
+            for vecino in grafo[nodo]:  #Metemos los vecinos a la pila
+                if vecino not in visitados:
+                    pila.append(vecino)
+
+    return visitados
