@@ -14,3 +14,13 @@ def dfs(grafo, inicio):
                     pila.append(vecino)
 
     return visitados
+
+#Definicion del grafe utilizado
+    grafo = {
+        'A': ['B', 'C'],
+        'B': ['D', 'E'],
+        'C': ['F'],
+        'D': [], 'E': [], 'F': []
+    }
+
+    dsf(grafo, 'A')
