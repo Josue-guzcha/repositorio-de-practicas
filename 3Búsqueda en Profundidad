@@ -1,3 +1,5 @@
+# todavia no funciona aaaahhhhhhh
+
 def dfs(grafo, inicio):
     visitados = []
     pila = [inicio]
