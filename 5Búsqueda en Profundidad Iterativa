@@ -1,0 +1,41 @@
+def dfs_limitado(grafo, inicio, meta, limite):
+    pila = [(inicio, 0)]    # La pila arranca con el nodo inicial en profundidad 0
+    visitados = []          # Lista de nodos ya visitados
+
+    while pila:     #Mientras haya nodos en la pila seguimos
+        nodo, profundidad = pila.pop()  # Sacamos el ultimo nodo y su profundidad
+
+        if nodo not in visitados:       # Si no lo hemos visitado lo marcamos como visitado
+            visitados.append(nodo)
+            print(f"Visitados: {nodo} | Profundidad: {profundidad}")
+
+            if nodo == meta:    #si el nodo actual es la meta lo retornamos y terminamos la busqueda
+                return nodo
+            
+            if profundidad < limite:    #si no hemos llegado al limite continua buscando
+                for vecino in grafo[nodo]:      #por cada vecino del nodo
+                    if vecino not in visitados: #si no esta visitado
+                        pila.append((vecino, profundidad + 1))  #Lo metemos a la pila sumando 1 a la profundidad
+
+    return None #Si termino la pila sin encontrar la meta, regresa none
+
+def dfs_iterativo(grafo, inicio, meta):
+    limite = 0  #Empezamos con limite 0
+
+    while True: #Repetimos para siempre hasta encontrar la meta
+        print(f"\n--- Probando limite {limite} ---")
+        resultado = dfs_limitado(grafo, inicio, meta, limite)   #Intentamos con el limite actual
+
+        if resultado is not None:   #Si encontro algo (no regreso none)
+            print(f"\n...Meta encontradaaaaaAAAAAaaah en profundidad {limite}")
+            return resultado    #fin
+        
+# Definicion de grafo utilizado
+grafo = {
+    'A':['B', 'C'],
+    'B':['D', 'E'],
+    'C':['F'],
+    'D':[], 'E':[], 'F':[],
+}
+
+dfs_iterativo(grafo,'A', 'F')   # Buscamos F empezando desde A
