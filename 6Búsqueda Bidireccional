@@ -1,0 +1,60 @@
+from collections import deque  # Importamos deque para las dos colas
+
+def bidireccional(grafo, grafo_inverso, inicio, meta):
+    #Búsqueda desde el inicio hacia adelante
+    visitados_inicio = {inicio}       # Nodos visitados desde el inicio
+    cola_inicio = deque([inicio])     # Cola de la búsqueda desde el inicio
+
+    # Búsqueda desde la meta hacia atrás
+    visitados_meta = {meta}           # Nodos visitados desde la meta
+    cola_meta = deque([meta])         # Cola de la búsqueda desde la meta
+
+    while cola_inicio and cola_meta:  # Mientras ambas colas tengan nodos...
+
+        #Avanzamos un paso desde el inicio
+        nodo = cola_inicio.popleft()          # Sacamos el primero de la cola del inicio
+        print(f"Desde inicio visitando: {nodo}")
+
+        for vecino in grafo[nodo]:            # Por cada vecino del nodo...
+            if vecino not in visitados_inicio: # Si no está visitado desde el inicio...
+                visitados_inicio.add(vecino)   # Lo marcamos como visitado
+                cola_inicio.append(vecino)     # Lo metemos a la cola del inicio
+
+                if vecino in visitados_meta:   # Si ese vecino ya fue visitado desde la meta...
+                    print(f"\n¡Búsquedas se encontraron en: {vecino}!")
+                    return vecino              # Encontramos el punto de encuentro
+
+        #Avanzamos un paso desde la meta
+        nodo = cola_meta.popleft()            # Sacamos el primero de la cola de la meta
+        print(f"Desde meta visitando: {nodo}")
+
+        for vecino in grafo_inverso[nodo]:            # Por cada vecino en el grafo inverso...
+            if vecino not in visitados_meta:           # Si no está visitado desde la meta...
+                visitados_meta.add(vecino)             # Lo marcamos como visitado
+                cola_meta.append(vecino)               # Lo metemos a la cola de la meta
+
+                if vecino in visitados_inicio:         # Si ese vecino ya fue visitado desde el inicio...
+                    print(f"\n¡Búsquedas se encontraron en: {vecino}!")
+                    return vecino                      # Encontramos el punto de encuentro
+
+    return None  # Si no se encontraron, no hay camino
+
+# Definimos el grafo
+grafo = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+# El grafo inverso (de meta hacia atrás)
+grafo_inverso = {
+    'A': [],
+    'B': ['A'],
+    'C': ['A'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C']
+}
+
+bidireccional(grafo, grafo_inverso, 'A', 'F')
